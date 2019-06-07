@@ -127,7 +127,6 @@ function doJob() {
     if (err && err.message) {
       console.log(err.message);
     }
-    process.exit(1);
   }).finally(() => {
     promise = null;
     if (dirty) {

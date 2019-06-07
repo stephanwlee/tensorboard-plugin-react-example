@@ -6,12 +6,13 @@ if [ ! -d "node_modules" ]; then
 else
   echo "node_modules detected. Skipping npm install"
 fi
+npm run build
 popd
 
 
 echo "Now linking package"
-python setup.py -q develop
-echo "Use `python setup.py develop --uninstall` to remove the plugin."
+python setup.py develop
+echo "Use 'python setup.py develop --uninstall' to remove the plugin."
 
 pushd tensorboard_plugin_react/frontend
 npm run watch

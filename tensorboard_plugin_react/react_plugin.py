@@ -27,6 +27,8 @@ class ReactPlugin(base_plugin.TBPlugin):
         '/static/js/index.js': self.serve_static,
         '/static/js/main.js': self.serve_static,
         '/static/js/main.js.map': self.serve_static,
+        '/static/css/main.css': self.serve_static,
+        '/static/css/main.css.map': self.serve_static,
         '/static/media/logo.svg': self.serve_static,
     }
 

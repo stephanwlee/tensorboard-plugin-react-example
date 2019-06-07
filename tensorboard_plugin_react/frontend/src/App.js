@@ -6,6 +6,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <link rel="stylesheet" href="./static/css/main.css"></link>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
