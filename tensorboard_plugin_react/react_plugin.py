@@ -1,16 +1,16 @@
+"""Example of a TensorBoard dynamic plugin."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import os
 import mimetypes
-
-from werkzeug import wrappers
+import os
 
 from tensorboard.plugins import base_plugin
-from tensorboard_plugin_react.base_plugin import TBPluginV2 
+from werkzeug import wrappers
 
-class ReactPlugin(TBPluginV2):
+
+class ReactPlugin(base_plugin.TBPlugin):
   """WebpackReact Plugin for TensorBoard."""
 
   plugin_name = 'react'
@@ -24,9 +24,10 @@ class ReactPlugin(TBPluginV2):
 
   def get_plugin_apps(self):
     return {
-      '/static/js/main.js': self.serve_static,
-      '/static/js/main.js.map': self.serve_static,
-      '/static/media/logo.svg': self.serve_static,
+        '/static/js/index.js': self.serve_static,
+        '/static/js/main.js': self.serve_static,
+        '/static/js/main.js.map': self.serve_static,
+        '/static/media/logo.svg': self.serve_static,
     }
 
   def is_active(self):
@@ -47,20 +48,17 @@ class ReactPlugin(TBPluginV2):
     build = os.path.join(os.path.dirname(__file__), 'frontend/build/')
     return self._send_file(os.path.join(build, *path_frags))
 
-  def webfile_path(self):
-    return 'static/js/main.js'
+  def frontend_metadata(self):
+    return super(ReactPlugin, self).frontend_metadata()._replace(
+        tab_name='React Demo',
+        es_module_path='/static/js/index.js',
+    )
 
 
 class ReactPluginLoader(base_plugin.TBLoader):
-    def load(self, context):
-        # pylint: disable=g-import-not-at-top
-        return ReactPlugin(context)
+  """Loads React Plugin dynamically. Allows dynamic imorts."""
+
+  def load(self, context):
+    return ReactPlugin(context)
 
 
-def get_plugin():
-    # You can do lazy import here
-
-    return (
-        'react',
-        'This is a plugin that uses create_react_app',
-        ReactPluginLoader())

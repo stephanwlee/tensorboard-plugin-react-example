@@ -20,9 +20,9 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     entry_points={
-	"tensorboard_plugins": [ 
-            "tensorboard_plugin_react=tensorboard_plugin_react.react_plugin:get_plugin",
-	],
+        "tensorboard_plugins": [
+            "tensorboard_plugin_react=tensorboard_plugin_react.react_plugin:ReactPlugin",
+        ],
     },
     install_requires=REQUIRED_PACKAGES,
     classifiers=[
